@@ -29,9 +29,7 @@ multipledf2.count()
 multipledf3 =(multipledf2.groupby('Order ID').agg(f.concat_ws(", ", f.collect_list(f.col('Product'))).alias('items_order'),
              *[f.first(cl).alias(cl) for cl in multipledf2.columns if not cl == 'Order ID']))
 
-
 dynamic_frame_write = DynamicFrame.fromDF(data_frame, glue_context, "dynamic_frame_write")
- 
 glue_context.write_dynamic_frame.from_options(frame = dynamic_frame_write,connection_type = "s3",
 connection_options = {"path": s3_write_path},format = "csv")
 
