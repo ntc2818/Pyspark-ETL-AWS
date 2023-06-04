@@ -1,0 +1,54 @@
+{
+  "Comment": "state machine",
+  "StartAt": "Crawler Started",
+  "States": {
+    "Crawler Started": {
+      "Type": "Task",
+      "Parameters": {
+        "Name": "CRAWLER_NAME"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+      "Next": "Load Meta Data"
+    },
+    "Load Meta Data": {
+      "Type": "Task",
+      "Parameters": {
+        "Name": "CRAWLER_NAME"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+      "Next": "If Crawler Running"
+    },
+    "If Crawler Running": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.Crawler.State",
+          "StringEquals": "RUNNING",
+          "Next": "Wait Till Run Complete"
+        }
+      ],
+      "Default": "total-products-glue-job"
+    },
+    "Wait Till Run Complete": {
+      "Type": "Wait",
+      "Seconds": 5,
+      "Next": "Load Meta Data"
+    },
+    "total-products-glue-job": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "GLUE_JOB-NAME"
+      },
+      "Next": "same-products-glue-job"
+    },
+    "same-products-glue-job": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "GLUE_JOB-NAME"
+      },
+      "End": true
+    }
+  }
+}
