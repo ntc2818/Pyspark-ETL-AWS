@@ -1,8 +1,10 @@
 # Pyspark-ETL-AWS
 **Prerequisites**
 
-*ETL Process Using AWS Services*
+_*ETL Process Using AWS Services*_
+
 **Product Versions**
+
 **Architecture**
 **High level work flow**
 **Repository Structure**
