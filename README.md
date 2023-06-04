@@ -31,10 +31,6 @@ This pipeline is to build a serverless ETL pipeline to validate, transform csv d
 4. AWS Glue job transform the data into the required output of total products sold per month and the products that are sold together.
 5. AWS Glue job also move the file to processed bucket
 
-**Repository Structure**
-
-
-
 **Workflow Execution**
 
 ![image](https://github.com/ntc2818/Pyspark-ETL-AWS/assets/43464281/d66daadd-6e2e-4b44-b55f-e72059062b39)
