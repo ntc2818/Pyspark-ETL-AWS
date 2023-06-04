@@ -24,8 +24,19 @@ This pipeline is to build a serverless ETL pipeline to validate, transform csv d
 ![image](https://github.com/ntc2818/Pyspark-ETL-AWS/assets/43464281/2924d4ae-92d9-401a-8570-0013f4ee374e)
 
 **High level work flow**
+
+1. User uploads a csv file. AWS S3 Notification event triggers a AWS Lambda function.
+2. AWS Lambda function starts the step function state machine.
+3. AWS Glue Crawler create the schema of the raw file. The Resulting Schema can be seen in AWS Athena to check data discrepency. 
+4. AWS Glue job transform the data into the required output of total products sold per month and the products that are sold together.
+5. AWS Glue job also move the file to processed bucket
+
 **Repository Structure**
+
+
+
 **Workflow Execution**
 
-![image](https://github.com/ntc2818/Pyspark-ETL-AWS/assets/43464281/a791cbe6-793f-4c5b-b3a7-b71f772c580f)
+![image](https://github.com/ntc2818/Pyspark-ETL-AWS/assets/43464281/d66daadd-6e2e-4b44-b55f-e72059062b39)
+
 
